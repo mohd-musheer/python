@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite - Food Delivery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for webkit browsers */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div id="app-container" class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="p-4 flex justify-between items-center bg-white shadow-sm sticky top-0 z-10">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-map-marker-alt text-orange-500 text-xl"></i>
+                <div>
+                    <span class="font-bold text-gray-800">Home</span>
+                    <p class="text-xs text-gray-500">Nagpur, Maharashtra, India</p>
+                </div>
+            </div>
+            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                 <i class="fas fa-user text-gray-500"></i>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="p-4">
+            <!-- Greeting and Search -->
+            <section class="mb-6">
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">What would you like to eat?</h1>
+                <div class="relative">
+                    <input type="text" placeholder="Search for restaurants or dishes..." class="w-full p-3 pl-10 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 transition">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </section>
+
+            <!-- Categories -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Categories</h2>
+                <div id="category-container" class="flex space-x-4 overflow-x-auto no-scrollbar pb-2">
+                    <!-- Categories will be injected here by JS -->
+                </div>
+            </section>
+
+            <!-- Restaurants -->
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Popular Restaurants</h2>
+                <div id="restaurant-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Restaurant cards will be injected here by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-t max-w-4xl mx-auto border-t border-gray-200">
+            <div class="flex justify-around py-2">
+                <a href="#" class="flex flex-col items-center text-orange-500 w-1/4">
+                    <i class="fas fa-home text-xl"></i>
+                    <span class="text-xs font-medium">Home</span>
+                </a>
+                <a href="#" class="flex flex-col items-center text-gray-400 hover:text-orange-500 transition w-1/4">
+                    <i class="fas fa-utensils text-xl"></i>
+                    <span class="text-xs font-medium">Restaurants</span>
+                </a>
+                <a href="#" class="flex flex-col items-center text-gray-400 hover:text-orange-500 transition w-1/4">
+                    <i class="fas fa-receipt text-xl"></i>
+                    <span class="text-xs font-medium">Orders</span>
+                </a>
+                <a href="#" class="flex flex-col items-center text-gray-400 hover:text-orange-500 transition w-1/4">
+                    <i class="fas fa-user-circle text-xl"></i>
+                    <span class="text-xs font-medium">Profile</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categories = [
+                { name: 'Pizza', icon: 'fas fa-pizza-slice', color: 'bg-red-100', textColor: 'text-red-600' },
+                { name: 'Burger', icon: 'fas fa-hamburger', color: 'bg-yellow-100', textColor: 'text-yellow-600' },
+                { name: 'Indian', icon: 'fas fa-pepper-hot', color: 'bg-green-100', textColor: 'text-green-600' },
+                { name: 'Sushi', icon: 'fas fa-fish', color: 'bg-blue-100', textColor: 'text-blue-600' },
+                { name: 'Desserts', icon: 'fas fa-ice-cream', color: 'bg-pink-100', textColor: 'text-pink-600' },
+                { name: 'Pasta', icon: 'fas fa-bacon', color: 'bg-indigo-100', textColor: 'text-indigo-600' },
+                { name: 'Salad', icon: 'fas fa-leaf', color: 'bg-lime-100', textColor: 'text-lime-600' },
+            ];
+
+            const restaurants = [
+                {
+                    name: "Domino's Pizza",
+                    image: "https://placehold.co/600x400/FF6347/FFFFFF?text=Pizza",
+                    cuisine: "Pizza, Italian",
+                    rating: 4.5,
+                    time: "25-30 min"
+                },
+                {
+                    name: "Burger King",
+                    image: "https://placehold.co/600x400/FDB813/FFFFFF?text=Burger",
+                    cuisine: "Burgers, Fast Food",
+                    rating: 4.3,
+                    time: "15-20 min"
+                },
+                {
+                    name: "Haldiram's",
+                    image: "https://placehold.co/600x400/228B22/FFFFFF?text=Indian",
+                    cuisine: "North Indian, Sweets",
+                    rating: 4.8,
+                    time: "30-35 min"
+                },
+                {
+                    name: "Subway",
+                    image: "https://placehold.co/600x400/009246/FFFFFF?text=Sub",
+                    cuisine: "Sandwiches, Salads",
+                    rating: 4.4,
+                    time: "20-25 min"
+                },
+                {
+                    name: "Behrouz Biryani",
+                    image: "https://placehold.co/600x400/8B4513/FFFFFF?text=Biryani",
+                    cuisine: "Biryani, Mughlai",
+                    rating: 4.6,
+                    time: "35-40 min"
+                },
+                {
+                    name: "Natural Ice Cream",
+                    image: "https://placehold.co/600x400/FFC0CB/000000?text=Ice+Cream",
+                    cuisine: "Ice Cream, Desserts",
+                    rating: 4.9,
+                    time: "10-15 min"
+                },
+            ];
+
+            const categoryContainer = document.getElementById('category-container');
+            categories.forEach(category => {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'flex flex-col items-center space-y-2 flex-shrink-0 cursor-pointer group';
+                categoryElement.innerHTML = `
+                    <div class="w-16 h-16 ${category.color} rounded-xl flex items-center justify-center group-hover:shadow-md transition">
+                        <i class="${category.icon} ${category.textColor} text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700 group-hover:text-orange-500 transition">${category.name}</span>
+                `;
+                categoryContainer.appendChild(categoryElement);
+            });
+
+            const restaurantGrid = document.getElementById('restaurant-grid');
+            restaurants.forEach(restaurant => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer transform hover:-translate-y-1';
+                card.innerHTML = `
+                    <div class="relative">
+                        <img class="w-full h-32 object-cover" src="${restaurant.image}" alt="${restaurant.name}">
+                        <div class="absolute top-2 right-2 bg-white rounded-full px-2 py-1 text-xs font-bold flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span>${restaurant.rating}</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800">${restaurant.name}</h3>
+                        <p class="text-sm text-gray-500">${restaurant.cuisine}</p>
+                        <div class="flex items-center mt-2 text-xs text-gray-600">
+                            <i class="fas fa-clock mr-1"></i>
+                            <span>${restaurant.time}</span>
+                        </div>
+                    </div>
+                `;
+                restaurantGrid.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>

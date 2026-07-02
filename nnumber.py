@@ -1,0 +1,1 @@
+l=input().split();print(sum(int(x)for x in set(l)if l.count(x)==2))
